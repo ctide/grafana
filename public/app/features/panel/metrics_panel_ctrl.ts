@@ -245,6 +245,13 @@ class MetricsPanelCtrl extends PanelCtrl {
       result = {data: []};
     }
 
+    if (result.err) {
+      this.loading = false;
+      this.error = result.err.message || "Request Error";
+      this.inspector = {error: result.err};
+      this.events.emit('data-error', result.err);
+      console.log('Panel data error:', result.err);
+    }
     return this.events.emit('data-received', result.data);
   }
 
